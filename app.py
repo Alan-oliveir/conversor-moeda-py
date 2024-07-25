@@ -1,6 +1,8 @@
-
+import logging
 import customtkinter
 from main import api_key, converter_moeda
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class App(customtkinter.CTk):
@@ -54,12 +56,15 @@ class App(customtkinter.CTk):
             if resultado is not None:
                 self.textbox.delete("1.0", customtkinter.END)
                 self.textbox.insert("1.0", f"{valor} {moeda_origem} = {resultado:.2f} {moeda_destino}")
+                logging.info(f"Conversão bem-sucedida: {valor} {moeda_origem} = {resultado:.2f} {moeda_destino}")
             else:
                 self.textbox.delete("1.0", customtkinter.END)
                 self.textbox.insert("1.0", "Erro ao obter a conversão.")
+                logging.error("Erro ao obter a conversão.")
         except ValueError as e:
             self.textbox.delete("1.0", customtkinter.END)
             self.textbox.insert("1.0", f"Erro: {e}")
+            logging.error(f"Erro: {e}")
 
 
 app = App()

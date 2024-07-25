@@ -1,11 +1,15 @@
-import requests
-from dotenv import load_dotenv
 import os
+import requests
+import logging
+from dotenv import load_dotenv
+
 
 load_dotenv()
 
 # Chave da API
 api_key = os.getenv('API_KEY')
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 # Função para obter a taxa de câmbio
@@ -20,10 +24,10 @@ def obter_taxa_de_cambio(api_key, moeda_origem, moeda_destino):
         else:
             raise ValueError("Dados de taxa de câmbio não disponíveis.")
     except requests.exceptions.RequestException as e:
-        print(f"Erro de conexão: {e}")
+        logging.error(f"Erro de conexão: {e}")
         return None
     except ValueError as e:
-        print(f"Erro nos dados recebidos: {e}")
+        logging.error(f"Erro nos dados recebidos: {e}")
         return None
 
 
@@ -36,5 +40,5 @@ def converter_moeda(api_key, valor, moeda_origem, moeda_destino):
         else:
             return None
     except ValueError:
-        print("Valor inválido para conversão.")
+        logging.error("Valor inválido para conversão.")
         return None
