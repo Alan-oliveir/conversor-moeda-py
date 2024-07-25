@@ -1,4 +1,8 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 # Função para obter a taxa de câmbio
@@ -24,7 +28,7 @@ def converter_moeda(api_key, valor, moeda_origem, moeda_destino):
 
 
 # Chave da API
-api_key = "9b75d51e36e71baa9087f7b1"
+api_key = os.getenv('API_KEY')
 
 # Exemplo de uso
 moeda_origem = input("Digite a moeda de origem (por exemplo, USD): ").upper()
