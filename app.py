@@ -42,16 +42,24 @@ class App(customtkinter.CTk):
         self.textbox.grid(row=8, column=0)
 
     def on_button_click(self):
-        valor = float(self.entry_valor.get())
-        moeda_origem = self.entry_origem.get()
-        moeda_destino = self.entry_destino.get()
-        resultado = converter_moeda(api_key, valor, moeda_origem, moeda_destino)
-        if resultado:
+        try:
+            valor = self.entry_valor.get().strip()
+            moeda_origem = self.entry_origem.get().strip().upper()
+            moeda_destino = self.entry_destino.get().strip().upper()
+
+            if not valor or not moeda_origem or not moeda_destino:
+                raise ValueError("Todos os campos são obrigatórios.")
+
+            resultado = converter_moeda(api_key, valor, moeda_origem, moeda_destino)
+            if resultado is not None:
+                self.textbox.delete("1.0", customtkinter.END)
+                self.textbox.insert("1.0", f"{valor} {moeda_origem} = {resultado:.2f} {moeda_destino}")
+            else:
+                self.textbox.delete("1.0", customtkinter.END)
+                self.textbox.insert("1.0", "Erro ao obter a conversão.")
+        except ValueError as e:
             self.textbox.delete("1.0", customtkinter.END)
-            self.textbox.insert("1.0", f"{valor} {moeda_origem} = {resultado} {moeda_destino}")
-        else:
-            self.textbox.delete("1.0", customtkinter.END)
-            self.textbox.insert("1.0", "Erro ao obter a conversão.")
+            self.textbox.insert("1.0", f"Erro: {e}")
 
 
 app = App()
