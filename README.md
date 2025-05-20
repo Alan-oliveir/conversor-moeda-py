@@ -6,7 +6,7 @@ O objetivo deste projeto consiste no desenvolvimento de um conversor de moedas s
                      
 - Conversor de moeda:
   - Programa em Python que permite ao usuário converter valores de uma moeda para outra. 
-  - Utiliza interface amigável para interação.  
+  - Utiliza interface amigável usando customTkinter para interação.  
 
 - Uso de IA:
   - Foi utilizada a inteligência artificial para auxiliar na estruturação do código, fornecendo sugestões ou orientações durante o desenvolvimento (Copilot e ChatGPT).
